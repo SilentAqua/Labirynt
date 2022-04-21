@@ -243,14 +243,28 @@ void rysowanie_(int numer) {
 		gotoxy(x + 1, y);
 		putch('_');
 
-		y = 20 - numer + 1;
+		y = 20 - numer;
 
 		gotoxy(x, y);
 		putch('_');
 		gotoxy(x + 1, y);
 		putch('_');
 	}
-	else {
+	else if(numer > 4 && numer <= 7){
+		x = numer * 2 + 3;
+		y = numer;
+
+		gotoxy(x, y);
+		putch('_');
+
+		y = 20 - numer;
+		gotoxy(x, y);
+		putch('_');
+	}
+	else if (numer >= 8 && numer <= 10) {
+
+	}
+	else if (numer >= 11 && numer <= 14) {
 
 	}
 
@@ -258,23 +272,85 @@ void rysowanie_(int numer) {
 }
 
 void rysowanie_slash(int numer) {
+	int x, y;
+	if (numer <= 4) {
+		x = numer * 3;
+		y = numer + 1;
+	}
+	else if(numer > 4 && numer <=7) {
+		x = numer * 3 + (4 - numer);
+		y = numer + 1;
+	}
+	else if (numer >= 8 && numer <= 10) {
+		x = (numer - 2) * 3 + 11 - numer;
+		y = numer + 5;
+	}
+	else if (numer >= 11 && numer <= 14) {
+		x = (numer - 2) * 3;
+		y = numer + 5;
+	}
+	gotoxy(x, y);
+	putch('\\');
+}
 
+void rysowanie_backslash(int numer) {
+	int x, y;
+	if (numer <= 4) {
+		x = numer * 3;
+		y = 20 - numer;
+	}
+	else if (numer > 4 && numer <= 7) {
+		x = numer * 3 + (4 - numer);
+		y = 20 - numer;
+	}
+	else if (numer >= 8 && numer <= 10) {
+		x = (numer - 2) * 3 + 11 - numer;
+		y = 16 - numer;
+	}
+	else if (numer >= 11 && numer <= 14) {
+		x = (numer - 2) * 3;
+		y = 16 - numer;
+	}
+	gotoxy(x, y);
+	putch('/');
+}
+
+void rysowanie_kreski(int numer) {
+	int x, y, y1, y2;
+	if (numer <= 4) {
+		x = numer * 3;
+		y1 = numer + 2;
+		y2 = 20 - numer - 1;
+	}
+	else if (numer > 4 && numer <= 7) {
+		x = numer * 3 + (4 - numer);
+		y1 = numer + 2;
+		y2 = 20 - numer - 1;
+	}
+	else if (numer >= 8 && numer <= 10) {
+		x = (numer - 2) * 3 + 11 - numer;
+		y1 = numer - (numer - 7) * 2 + 3;
+		y2 = 20 - (numer - (numer - 7) * 2 + 3) - 2;
+	}
+	else if (numer >= 11 && numer <= 14) {
+		x = (numer - 2) * 3;
+		y1 = numer - (numer - 7) * 2 + 3;
+		y2 = 20 - (numer - (numer - 7) * 2 + 3) - 2;
+	}
+	for (int i = y1; i <= y2; i++) {
+		gotoxy(x, i);
+		putch('|');
+	}
+	
+	
 }
 
 void rysowanie_sciany(int numer) {
 	textcolor(2);
 	rysowanie_(numer);
-
-	gotoxy(3, 2);
-	putch('\\');
-
-	for (int i = 3; i < 20; i++) {
-		gotoxy(4, i);
-		putch('|');
-	}
-
-	gotoxy(3, 20);
-	putch('/');
+	rysowanie_slash(numer);
+	rysowanie_kreski(numer);
+	rysowanie_backslash(numer);
 
 }
 
@@ -282,6 +358,14 @@ int main() {
 	textbackground(BLACK);
 	clrscr();
 	rysowanie_sciany(1);
+	rysowanie_sciany(2);
+	rysowanie_sciany(3);
+	rysowanie_sciany(4);
+	rysowanie_sciany(5);
+	rysowanie_sciany(6);
+	rysowanie_sciany(7);
+	rysowanie_sciany(8);
+	rysowanie_sciany(9);
 	char zn = getch();
 	return 0;
 }
